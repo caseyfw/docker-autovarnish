@@ -7,8 +7,9 @@ varnishd -f /etc/varnish/default.vcl -s malloc,${VARNISH_MEMORY} ${VARNISHD_PARA
 echo "Varnish started successfully."
 
 # When config.vcl changes, recompile and load new vcl.
-while true; do
-  if inotifywait -e modify /varnish/config.vcl > /dev/null 2>&1 ; then
+inotifywait -m -e close_write,moved_to --format %f /varnish |
+while read -r file; do
+  if [ "$file" == "config.vcl" ]; then
     echo "Config changed, recompiling varnish."
     timestamp=$(date +%Y%m%d.%H%M%S)
     varnishadm vcl.load $timestamp /etc/varnish/default.vcl && varnishadm vcl.use $timestamp
