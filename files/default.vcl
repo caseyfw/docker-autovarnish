@@ -13,9 +13,8 @@ probe health_check {
 
 # Required to satisfy varnish's insatiable need for something to do.
 backend default {
-    .host = "127.0.0.1";
-    .port = "80";
-    .probe = health_check;
+    .host = "172.17.0.1";
+    .port = "8080";
 }
 
 include "/varnish/config.vcl";

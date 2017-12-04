@@ -23,12 +23,12 @@ docker logs -f autovarnish
 ## Sample config.vcl file
 
 The following `config.vcl` would result in requests for /my-app-path being
-directed to 172.17.0.1:8080.
+directed to 172.17.0.1:8000.
 
 ```
 backend my_app {
   .host = "172.17.0.1";
-  .port = "8080";
+  .port = "8000";
   .connect_timeout = 1s;
   .first_byte_timeout = 30s;
   .between_bytes_timeout = 10s;
@@ -42,3 +42,7 @@ sub vcl_recv {
   }
 }
 ```
+
+## Default backend
+
+The default backend is set to 172.17.0.1:8080.
