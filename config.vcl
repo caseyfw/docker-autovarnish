@@ -1,3 +1,11 @@
+probe health_check {
+    .url = "/probe.htm";
+    .timeout = 1s;
+    .interval = 10s;
+    .window = 5;
+    .threshold = 3;
+}
+
 backend my_app {
   .host = "172.17.0.1";
   .port = "8000";

@@ -33,7 +33,6 @@ backend my_app {
   .first_byte_timeout = 30s;
   .between_bytes_timeout = 10s;
   .max_connections = 10;
-  .probe = health_check;
 }
 
 sub vcl_recv {
@@ -45,4 +44,6 @@ sub vcl_recv {
 
 ## Default backend
 
-The default backend is set to 172.17.0.1:8080.
+The default backend is unset. However, a pseudo default backend called 'first'
+is defined as 172.17.0.1:8080. Being the first backend defined in config, this
+is the default backend unless you create one explicitly named 'default'.
