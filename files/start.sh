@@ -11,7 +11,7 @@ inotifywait -m -e close_write,moved_to --format %f /varnish |
 while read -r file; do
   if [ "${file: -4}" == ".vcl" ]; then
     echo "Config changed, recompiling varnish."
-    timestamp=$(date +%Y%m%d.%H%M%S)
+    timestamp=$(date +%Y%m%d_%H%M%S)
     vcl_name="v_${timestamp}"
     varnishadm vcl.load ${vcl_name} /etc/varnish/default.vcl && varnishadm vcl.use ${vcl_name}
   fi
