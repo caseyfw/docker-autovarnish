@@ -12,6 +12,7 @@ while read -r file; do
   if [ "${file: -4}" == ".vcl" ]; then
     echo "Config changed, recompiling varnish."
     timestamp=$(date +%Y%m%d.%H%M%S)
-    varnishadm vcl.load $timestamp /etc/varnish/default.vcl && varnishadm vcl.use $timestamp
+    vcl_name="v_${timestamp}"
+    varnishadm vcl.load ${vcl_name} /etc/varnish/default.vcl && varnishadm vcl.use ${vcl_name}
   fi
 done
